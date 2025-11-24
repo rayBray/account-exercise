@@ -4,6 +4,7 @@ Hello! I know this wasn’t required, but I thought it would be fun to properly 
 I noted a few areas in the code where I believe improvements could be made. I didn’t add anything to the repo that wasn’t discussed during the interview; this was to demonstrate what I was describing in case my explanation wasn’t fully clear.
 I also didn’t include unit tests, as I set myself a time limit and didn’t want to spend my full Sunday digging through compatible Java 11 testing setups (especially without Maven).
 
+I placed all the 'external' calls to other services in a separate folder.
 Here is a High-Level Diagram of the application, please note that this flow isn't all the calls made; but it should give you an idea of the structure:
 ## Account Creation Flow
 
