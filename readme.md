@@ -9,7 +9,7 @@ I also didn’t include unit tests, as I set myself a time limit for this task.
 - The different tables that stored accounts (ivory, silver, gold) I brought together into a single table. It will be easier to query the database 
 for all accounts, and if a user needs the account type to be adjusted, it would be less complex.
 - I added improvement notes in the javadocs of the classes for more detail.
-- I also tried my hand at JDBC it seems to prevent the query injection issue we had with the initial approach. JDBC was mentioned in the interview thats why I choose to just expand on it.
+- I also tried my hand at JDBC it seems to prevent the sql injection issue we had with the initial approach. JDBC was mentioned in the interview thats why I choose to just expand on it.
 
 Here is a High-Level Diagram of the Feature:
 ## Account Creation Flow
