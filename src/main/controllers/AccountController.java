@@ -5,7 +5,8 @@ import main.repositories.AccountRepository;
 import main.services.AccountService;
 
 import java.time.LocalDate;
-import java.security.SecureRandom;
+import java.util.UUID;
+
 /**
 * Controller class for Accounts
 * @author Rachel Brestansky
@@ -32,9 +33,10 @@ public class AccountController {
         accountService.validateBasicInformation(firstName, lastName, birthdate, fiscalNumber);
         //AccountCategory could be its own table:
         AccountCategory accountCategory = accountService.fetchAccountCategory(fiscalNumber);
-        SecureRandom random = new SecureRandom();
+        UUID uuid = UUID.randomUUID();
+
         // Switched three tables in to one:
-        Account account = new Account(random.nextInt(1000000), //This would need to be a sequence
+        Account account = new Account(uuid.toString(),
                 firstName,
                 lastName,
                 fiscalNumber,

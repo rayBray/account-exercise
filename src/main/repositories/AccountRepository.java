@@ -3,9 +3,8 @@ package main.repositories;
 import external.credit.CreditScore;
 import main.models.Account;
 
+import java.sql.*;
 import java.time.LocalDate;
-import java.util.List;
-import java.util.Map;
 
 /**
  * Repository class for Account. Handles all database operations related to Account.
@@ -18,14 +17,23 @@ public class AccountRepository extends BaseRepository {
      * @param accountId: account id of the account to be retrieved
      * @return Account: retrieved account or null if no account was found
      */
-    public Account findOne(int accountId) {
-        String sql = "SELECT * FROM ACCOUNT WHERE ACCOUNTID = " + accountId; //sql injection? Never heard of it.
-        List<Map<String, Object>> rows = query(sql);
+    public Account findOne(String accountId) {
+        String sql = "SELECT * FROM ACCOUNT WHERE ACCOUNTID = ?";
 
-        if (rows.isEmpty()) {
+        try (Connection connection = getConnection();
+             PreparedStatement stmt = connection.prepareStatement(sql)) {
+
+            stmt.setString(1, accountId);
+
+            try (ResultSet rs = stmt.executeQuery()) {
+                if (rs.next()) {
+                    return mapRow(rs);
+                }
+            }
             return null;
+        } catch (Exception e) {
+            throw new RuntimeException("Query failed: " + e.getMessage(), e);
         }
-        return mapRow(rows.getFirst());
     }
 
     /**
@@ -34,35 +42,38 @@ public class AccountRepository extends BaseRepository {
      */
     public void insert(Account account) {
         String sql = "INSERT INTO ACCOUNT (ACCOUNTID, FIRSTNAME, LASTNAME, FISCALNUM, BIRTHDATE, CREDITSCORE, CLIENTTYPE, CREDITLIMIT) " +
-                "VALUES '" +
-                account.getId() + "', '" +
-                account.getFirstName() + "', '" +
-                account.getLastName() + "', " +
-                account.getFiscalNumber() + "', '" +
-                account.getBirthdate().toEpochDay() + "', '" +
-                account.getCreditScore().name() + "', '" +
-                account.getClientType() + "', '" +
-                account.getCreditLimit() + "';";
-        insert(sql);
+                "VALUES (?, ?, ?, ?, ?, ?, ?, ?)" ;
+        try (Connection connection = getConnection();
+             PreparedStatement stmt = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
+            stmt.setString(1, account.getId());
+            stmt.setString(2, account.getFirstName());
+            stmt.setString(3, account.getLastName());
+            stmt.setLong(4, account.getFiscalNumber());
+            stmt.setLong(5, account.getBirthdate().toEpochDay());
+            stmt.setString(6, account.getCreditScore().name());
+            stmt.setString(7, account.getClientType());
+            stmt.setInt(8, account.getCreditLimit());
+            stmt.executeUpdate();
+        } catch (Exception e) {
+            throw new RuntimeException("Insert failed: " + e.getMessage(), e);
+        }
     }
 
     /**
      * Maps a row from the database to an Account object.
-     * @param row: row from the database
+     * @param rs: result set from the database
      * @return: Account
      */
-    private Account mapRow(Map<String, Object> row) {
+    private Account mapRow(ResultSet rs) throws SQLException {
         Account a = new Account();
-
-        a.setId((Integer) row.get("ACCOUNTID"));
-        a.setFirstName((String) row.get("FIRSTNAME"));
-        a.setLastName((String) row.get("LASTNAME"));
-        a.setFiscalNumber((Long) row.get("FISCALNUM"));
-        a.setBirthdate(LocalDate.ofEpochDay((Long) row.get("BIRTHDATE")));
-        a.setCreditScore(CreditScore.valueOf((String) row.get("CREDITSCORE")));
-        a.setClientType((String) row.get("CLIENTTYPE"));
-        a.setCreditLimit((Integer) row.get("CREDITLIMIT"));
-
+        a.setId(rs.getString("ACCOUNTID"));
+        a.setFirstName(rs.getString("FIRSTNAME"));
+        a.setLastName(rs.getString("LASTNAME"));
+        a.setFiscalNumber(rs.getLong("FISCALNUM"));
+        a.setBirthdate(LocalDate.ofEpochDay(rs.getLong("BIRTHDATE")));
+        a.setCreditScore(CreditScore.valueOf(rs.getString("CREDITSCORE")));
+        a.setClientType(rs.getString("CLIENTTYPE"));
+        a.setCreditLimit(rs.getInt("CREDITLIMIT"));
         return a;
     }
 }

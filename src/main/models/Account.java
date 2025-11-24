@@ -10,7 +10,7 @@ import java.time.LocalDate;
  * account type (account category).
  */
 public class Account {
-    private  int id;
+    private  String id;
     private  String lastName;
     private String firstName;
     private CreditScore creditScore;
@@ -19,7 +19,7 @@ public class Account {
     private int creditLimit;
     private long fiscalNumber;
 
-    public Account(int accountId, String firstName, String lastName, long fiscalNumber, LocalDate birthdate,  CreditScore creditScore, String clientType, int creditLimit) {
+    public Account(String accountId, String firstName, String lastName, long fiscalNumber, LocalDate birthdate, CreditScore creditScore, String clientType, int creditLimit) {
 
         this.id = accountId;
         this.firstName = firstName;
@@ -32,11 +32,11 @@ public class Account {
     }
     public Account() {} // For DB mapping
 
-    public int getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(String id) {
         this.id = id;
     }
 
