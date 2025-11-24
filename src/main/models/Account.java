@@ -25,7 +25,7 @@ public class Account {
         this.clientType = clientType;
         this.creditLimit = creditLimit;
     }
-    public Account() {} // DB mapping and unit testing
+    public Account() {} // DB mapping
 
     public int getId() {
         return id;

@@ -4,7 +4,8 @@
 # Datasource local storage ignored files
 /dataSources/
 /dataSources.local.xml
-/out
-/.idea
+/out/
+/.idea/
+/account-exercise.iml
 
 

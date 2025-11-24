@@ -77,10 +77,14 @@ public class BaseRepository {
      * @throws SQLException: if a database access error occurs
      */
     private Connection getConnection() throws SQLException {
-        return DriverManager.getConnection(
-                DATABASE_URL,
-                DATABASE_USER,
-                DATABASE_PASSWORD
-        );
+        try {
+            return DriverManager.getConnection(
+                    DATABASE_URL,
+                    DATABASE_USER,
+                    DATABASE_PASSWORD
+            );
+        } catch (SQLException e) {
+            throw new SQLException("Error while trying to connect to Database. ",e);
+        }
     }
 }
