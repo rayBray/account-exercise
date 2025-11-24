@@ -1,7 +1,7 @@
 package resource;
 
 /**
- * configuration file for the application. This data is fetched when the application is initialized.
+ * Configuration file for the application. This data is fetched when the application is initialized.
  */
 public class ConfigFile {
 

@@ -16,6 +16,7 @@ import static resource.ConfigFile.*;
 
 /**
  * Base repository class for database operations.
+ * Improvements to note: Batch calls, update, delete, and what if we use a different database?
  */
 public class BaseRepository {
     /**

@@ -9,6 +9,7 @@ import java.time.Period;
 
 /**
  * Service class for Accounts. Handles all business logic for Accounts.
+ * Improvement notes: Update java to make the switch statement more simple.
  */
 public class AccountService {
 

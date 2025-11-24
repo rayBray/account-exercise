@@ -9,6 +9,7 @@ import java.util.Map;
 
 /**
  * Repository class for Account. Handles all database operations related to Account.
+ * Improvement notes: findAll, batch calls, update, delete, and security risks with the current approach
  */
 public class AccountRepository extends BaseRepository {
 
@@ -24,7 +25,7 @@ public class AccountRepository extends BaseRepository {
         if (rows.isEmpty()) {
             return null;
         }
-        return mapRow(rows.get(0));
+        return mapRow(rows.getFirst());
     }
 
     /**

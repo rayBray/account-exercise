@@ -10,11 +10,15 @@ import java.security.SecureRandom;
 * Controller class for Accounts
 * @author Rachel Brestansky
 * @version 1.0
+ * Improvement notes: Logs and monitoring (how long does a request take, how many requests are made,
+ * what are the common failures, how are we handling failures. etc.).
+ * An actual endpoint should be created for this. If http it should be a Post. This could be a consumer if
+ * event-driven.
   */
 public class AccountController {
 
     /**
-    * Creates a new Account for user based on the provided information and credit score.
+    * Creates a new Account for a user based on the provided information and credit score.
      * Places a new account in the Account table in the database.
     * @param firstName: first name of an account user
     * @param lastName: last name of an account user

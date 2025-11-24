@@ -6,6 +6,8 @@ import external.credit.CreditScoreService;
 /**
  * Gateway class for Credit Scores. Handles all communication with the Credit Score Service or throws errors if
  * communication fails.
+ * Improvement notes: create a real gateway with better error handling/monitoring. If heavy traffic: see if webhooks exist
+ * instead of http calls.
  */
 public class CreditScoreGateway {
 

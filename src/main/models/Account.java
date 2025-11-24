@@ -4,6 +4,11 @@ import external.credit.CreditScore;
 
 import java.time.LocalDate;
 
+/**
+ * Account model class. Represents an account with personal information and credit details.
+ * Improvement notes: Take out clientType, creditLimit and CreditScore; instead use an index to point to the respective
+ * account type (account category).
+ */
 public class Account {
     private  int id;
     private  String lastName;
@@ -25,7 +30,7 @@ public class Account {
         this.clientType = clientType;
         this.creditLimit = creditLimit;
     }
-    public Account() {} // DB mapping
+    public Account() {} // For DB mapping
 
     public int getId() {
         return id;

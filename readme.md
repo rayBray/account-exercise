@@ -2,9 +2,14 @@
 
 Hello! I know this wasn’t required, but I thought it would be fun to properly fix the code.
 I noted a few areas in the code where I believe improvements could be made. I didn’t add anything to the repo that wasn’t discussed during the interview. This is to demonstrate what I was describing in case my explanation wasn’t fully clear.
-I also didn’t include unit tests, as I set myself a time limit and didn’t want to spend my full Sunday digging through compatible Java 11 testing setups (especially without Maven).
+I also didn’t include unit tests, as I set myself a time limit and didn’t want to spend my full Sunday digging through compatible Java 11 testing setups.
 
-I placed all the 'external' calls to other services in a separate folder.
+- I placed all the 'external' calls to other services in a separate folder.
+- The call to credit score is done using a gateway. This way, the credit score service can be easily replaced in the future by another service.
+- The different tables that stored accounts (ivory, silver, gold) I brought together in a single table. This way, it's easier to query the database 
+for all accounts and if a user needs the account type to be adjusted, it would be less complex.
+- I added improvement notes in the javadocs of the classes for more detail.
+
 Here is a High-Level Diagram of the application, please note that this flow isn't all the calls made; but it should give you an idea of the structure:
 ## Account Creation Flow
 
@@ -32,7 +37,7 @@ sequenceDiagram
     AccountController-->>User: Account
     deactivate AccountController
 ```
-
+---------------
 **Requirements given to junior**
 
  - Create a bank account service to handle the creation of new accounts.
